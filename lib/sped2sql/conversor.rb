@@ -11,7 +11,7 @@ module SPED2SQL
 
     def convert!
 
-      @mapa = Layout::Mapa.carrega!(@layout)
+      mapa = Layout::Mapa.carrega!(@layout)
 
     end
 

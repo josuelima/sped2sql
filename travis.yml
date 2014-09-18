@@ -1,6 +1,9 @@
 language: ruby
 bundler_args: --without no_ci
 script: "bundle exec rspec ./spec/"
+addons:
+   code_climate:
+     repo_token: 41268a9678ee7e0de3e230820db477d1bf185a5bf366b7b9f16963b1cd619a4c
 rvm:
   - 1.9.3
   - 2.0.0
