@@ -4,13 +4,14 @@ module SPED2SQL
   module Layout
     describe Mapa do
 
+      let(:mapa) { File.expand_path(File.join('spec','resources', 'mapa.txt')) }
+
       it "deveria carregar o layout para um mapa" do
-        layout = File.expand_path(File.join('spec','resources', 'layout_pequeno.txt'))
-        expect( SPED2SQL::Layout::Mapa.carrega!(layout) ).
+        expect( SPED2SQL::Layout::Mapa.carrega!(mapa) ).
           to eq({
-                "0000" => [:string, :date, :decimal, :string],
-                "0001" => [:string, :decimal],
-                "0002" => [:string, :decimal, :string]
+                "0000" => [:string, :string, :date, :decimal, :string],
+                "0001" => [:string, :string, :decimal],
+                "0002" => [:string, :string, :decimal, :string]
             })
       end
 

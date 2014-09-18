@@ -1,5 +1,8 @@
+# -*- encoding: utf-8 -*-
 module SPED2SQL
   class Conversor
+    include Layout
+    include Formatters
 
     attr_reader :fonte, :layout, :saida, :memoria, :mapa
 
@@ -7,11 +10,24 @@ module SPED2SQL
       valida_arquivo(fonte)
       valida_arquivo(layout)
       @fonte, @layout = fonte, layout
+      @saida = []
     end
 
-    def convert!
+    def converter!
 
-      mapa = Layout::Mapa.carrega!(@layout)
+      mapa = Mapa.carrega!(@layout)
+
+      CSV.foreach(fonte, col_sep: '|', quote_char: '|', encoding: 'ISO-8859-1') do |row|
+
+        ##
+        # primeiro e ultimo item de uma linha no SPED
+        # sempre é nulo
+        linha = row.clone[1..-2]
+
+        @saida << linha.zip(mapa[linha.first]).
+          map { |dado, tipo| StringConverter.converter(dado, tipo) }
+
+      end
 
     end
 

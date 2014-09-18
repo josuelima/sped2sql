@@ -9,7 +9,7 @@ module SPED2SQL
           end
 
           def string(subject)
-            subject
+            subject.gsub(/['"\\\x0]/,'\\\\\0')
           end
 
           def date(subject)

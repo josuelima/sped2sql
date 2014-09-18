@@ -4,23 +4,27 @@ module SPED2SQL
   module Formatters
     describe StringConverter do
 
-      before { @conversores = [:string, :date, :decimal] }
+      let(:conversores) { [:string, :date, :decimal] }
 
       it "deveria responder aos conversores" do
-        @conversores.each do |conversor|
+        conversores.each do |conversor|
           expect( StringConverter ).to respond_to(conversor)
         end
       end
 
       it "deveria retornar uma string vazia para dados nulos ou vazios" do
-        @conversores.each do |conversor|
-          expect( StringConverter.converter("", conversor) ).to  eq ""
+        conversores.each do |conversor|
+          expect( StringConverter.converter("", conversor)  ).to eq ""
           expect( StringConverter.converter(nil, conversor) ).to eq ""
         end
       end
 
       it "deveria retornar a string" do
         expect( StringConverter.converter("123", :string) ).to eq "123"
+      end
+
+      it "deveria 'escapar' strings quem contem apostrofos" do
+        expect( StringConverter.converter("test'e'a", :string) ).to eq "test\\'e\\'a"
       end
 
       it "deveria retornar o mesmo dado se o conversor nao existir" do

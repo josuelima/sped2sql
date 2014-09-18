@@ -1,0 +1,3 @@
+|0000|Teste|31122014|1000,50|Teste Fim|
+|0001|Empresa X|1520,37|
+|0002|Fornecedor|5200537,21|Dados|
