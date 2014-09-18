@@ -1,5 +1,7 @@
 language: ruby
 bundler_args: --without development production
+env:
+  - CODECLIMATE_REPO_TOKEN=41268a9678ee7e0de3e230820db477d1bf185a5bf366b7b9f16963b1cd619a4c 
 addons:
    code_climate:
      repo_token: 41268a9678ee7e0de3e230820db477d1bf185a5bf366b7b9f16963b1cd619a4c
