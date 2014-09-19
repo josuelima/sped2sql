@@ -1,8 +1,7 @@
 # -*- encoding: utf-8 -*-
 module SPED2SQL
-  class Conversor
+  class Conversor < Pipeline::Base
     include Layout
-    include Formatters
 
     attr_reader :fonte, :layout, :saida, :memoria, :mapa, :proc
 
@@ -11,20 +10,35 @@ module SPED2SQL
       valida_arquivo(layout)
       @fonte, @layout  = fonte, layout
       @saida, @memoria = [], {}
+
+      if options[:tasks].kind_of?(Array)
+        super(options[:tasks])
+      elsif options[:tasks] == :vazio
+        super([])
+      else
+        super([Pipeline::NormalizaSQL, Pipeline::AddHash])
+      end
     end
 
     def converter!
 
       mapa = Mapa.carrega!(@layout)
-
       CSV.foreach(fonte, col_sep: '|', quote_char: '|', encoding: 'ISO-8859-1') do |row|
+        
+        # O primeiro e o ultimo item de uma linha no SPED sempre é nulo
+        linha = row.clone[1..-2]
 
-        # o primeiro e o ultimo item de uma linha no SPED sempre é nulo
-        linha = row.clone[1..-2].zip(mapa[row[1]]).map { |dado, tipo| StringConverter.converter(dado, tipo) }
+        # Executa o pipe
+        pipe = execute({original: linha, 
+                        final:    linha, 
+                        mapa:     mapa[linha.first], 
+                        memoria:  @memoria, 
+                        saida:    @saida})
 
-        @saida << linha
-        @memoria[linha.first] = linha
 
+        @saida << pipe[:final]
+        @memoria[linha.first] = pipe[:final]
+      
       end
     end
 

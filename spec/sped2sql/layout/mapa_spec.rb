@@ -7,7 +7,7 @@ module SPED2SQL
 
       let(:mapa) { File.expand_path(File.join('spec','resources', 'mapa.txt')) }
 
-      it "deveria carregar o layout para um mapa" do
+      it "deveria carregar o layout para um hash" do
         expect( SPED2SQL::Layout::Mapa.carrega!(mapa) ).
           to eq({
                 "0000" => [:string, :string, :date, :decimal, :string],

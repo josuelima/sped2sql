@@ -1,19 +1,6 @@
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
 
-module FiltroVazio
-  def self.call(env)
-    env
-  end
-end
-
-module FiltroAdd
-  def self.call(env)
-    env[:total] = env[:total] + 100
-    env
-  end
-end
-
 module SPED2SQL
   module Pipeline
     describe Base do
