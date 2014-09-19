@@ -1,4 +1,5 @@
-##
+# -*- encoding: utf-8 -*-
+#
 # Simples class para adicionar tarefas a serem executadas
 # na leitura de cada linha do arquivo SPED
 #

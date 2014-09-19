@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 module SPED2SQL
   module Formatters
     class StringConverter
