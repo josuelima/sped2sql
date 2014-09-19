@@ -20,10 +20,18 @@ module SPED2SQL
         to raise_error(ArgumentError, "Arquivo inexistente: ???")
     end
 
-    it "deveria converter os dados do sped de acordo com o mapa fornecido" do
-      conversor = Conversor.new(arquivo_sped, arquivo_mapa)
-      conversor.converter!
-      puts conversor.saida
+    describe 'Conversão' do
+
+      let(:conversor) { Conversor.new(arquivo_sped, arquivo_mapa) }
+
+      it "deveria converter sped de acordo com o mapa" do
+        conversor.converter!
+      end
+
+      it "deveria converter sped de acordo com o mapa (passando um bloco)" do
+
+      end
+
     end
 
   end
