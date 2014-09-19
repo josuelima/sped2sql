@@ -10,8 +10,8 @@ module SPED2SQL
     class Base
       attr_accessor :tasks
 
-      def initialize
-        @tasks = []
+      def initialize(tasks = [])
+        @tasks = tasks
       end
 
       def << (task)
