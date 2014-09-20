@@ -6,7 +6,7 @@ module SPED2SQL
     describe GeraHash do
 
       it "deveria responder a get_hash" do 
-        expect(GeraHash).to respond_to :get_hash
+        expect( GeraHash ).to respond_to :get_hash
       end
 
       # (sem utilidade) melhorar ou remover

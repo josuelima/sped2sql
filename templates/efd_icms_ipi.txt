@@ -1,0 +1,3 @@
+|0000|string|string|date|decimal|string|
+|0001|string|string|decimal|
+|0002|string|string|decimal|string|

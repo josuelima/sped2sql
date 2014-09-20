@@ -1,6 +1,9 @@
 # -*- encoding: utf-8 -*-
 module SPED2SQL
   module Layout
+
+    TEMPLATE_PATH = File.expand_path('../../../../templates', __FILE__)
+
     class Mapa
       
       ##
@@ -33,6 +36,15 @@ module SPED2SQL
         end
 
         mapa
+      end
+
+      def self.arquivo_template(tipo)
+        case tipo
+        when :efd_icms_ipi
+          File.join(TEMPLATE_PATH, "efd_icms_ipi.txt")
+        else
+          raise(ArgumentError, "Template inexistente: #{tipo.to_s}")
+        end
       end
 
     end

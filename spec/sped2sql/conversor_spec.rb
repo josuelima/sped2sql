@@ -10,7 +10,6 @@ module SPED2SQL
     it "deveria validar se o arquivo sped existe ou nao" do
       expect { Conversor.new('???', arquivo_mapa) }.
         to raise_error(ArgumentError, "Arquivo inexistente: ???")
-      
 
       expect { Conversor.new(arquivo_sped, arquivo_mapa) }.
         not_to raise_error
@@ -24,6 +23,16 @@ module SPED2SQL
     it "deveria instanciar com as tasks default" do
       conversor = Conversor.new(arquivo_sped, arquivo_mapa)
       expect( conversor.tasks ).to eq([Pipeline::NormalizaSQL, Pipeline::AddHash])
+    end
+
+    it "deveria instaciar com o template informado" do
+      conversor = Conversor.new(arquivo_sped, :efd_icms_ipi)
+      expect( conversor.template ).to eq( File.expand_path("templates/efd_icms_ipi.txt") )
+    end
+
+    it "deveriar validar se o template informado é valido" do
+      expect { Conversor.new(arquivo_sped, :fake_template) }.
+        to raise_error(ArgumentError, "Template inexistente: #{:fake_template.to_s}")
     end
 
     it "deveria instanciar sem tasks quando informado" do
