@@ -3,21 +3,29 @@ module SPED2SQL
   class Conversor < Pipeline::Base
     include Layout
 
-    attr_reader :fonte, :layout, :saida, :memoria, :mapa, :proc
+    attr_reader :fonte, :layout, :saida, :memoria,
+                :tb_prefix, :tb_sufix
 
     def initialize(fonte, layout, options = {})
       valida_arquivo(fonte)
       valida_arquivo(layout)
-      @fonte, @layout  = fonte, layout
-      @saida, @memoria = [], {}
+      
+      @fonte      = fonte
+      @layout     = layout
+      @saida      = []
+      @memoria    = {}
+      @tbl_prefix = options[:tbl_prefix]
+      @tbl_sufix  = options[:tbl_sufx]
 
-      if options[:tasks].kind_of?(Array)
-        super(options[:tasks])
-      elsif options[:tasks] == :vazio
-        super([])
-      else
-        super([Pipeline::NormalizaSQL, Pipeline::AddHash])
-      end
+      tasks = if options[:tasks].kind_of?(Array)
+                options[:tasks]
+              elsif options[:tasks] == :vazio
+                []
+              else
+                [Pipeline::NormalizaSQL, Pipeline::AddHash]
+              end
+
+      super(tasks)
     end
 
     def converter!
@@ -34,7 +42,6 @@ module SPED2SQL
                         mapa:     mapa[linha.first], 
                         memoria:  @memoria, 
                         saida:    @saida})
-
 
         @saida << pipe[:final]
         @memoria[linha.first] = pipe[:final]
