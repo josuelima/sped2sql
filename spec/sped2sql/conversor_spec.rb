@@ -74,6 +74,18 @@ module SPED2SQL
                                          ['0002','Fornecedor','5200537.21','Dados', hash]])
       end
 
+      it "deveria converter para sql" do
+        hash = Formatters::GeraHash.get_hash
+        allow(Formatters::GeraHash).to receive(:get_hash).and_return(hash)
+
+        conversor = Conversor.new(arquivo_sped, arquivo_mapa)
+        conversor.converter!
+        expect( conversor.to_sql ).
+          to eq("INSERT INTO 0000 VALUES ('','Teste','2014-12-31','1000.50','Teste Fim','#{hash}');"\
+                "INSERT INTO 0001 VALUES ('','Empresa X','1520.37','#{hash}');"\
+                "INSERT INTO 0002 VALUES ('','Fornecedor','5200537.21','Dados','#{hash}');")
+      end
+
     end
 
   end

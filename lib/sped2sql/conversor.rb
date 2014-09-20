@@ -49,7 +49,7 @@ module SPED2SQL
     end
 
     def to_sql
-      SQL::Parser.to_sql(@saida, @db_params)
+      SQL::Parser.to_sql(@saida, @db_params || {})
     end
 
     private
