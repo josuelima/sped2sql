@@ -3,8 +3,7 @@ module SPED2SQL
   class Conversor < Pipeline::Base
     include Layout
 
-    attr_reader :fonte, :template, :saida, :memoria,
-                :tbl_prefix, :tbl_sufix
+    attr_reader :fonte, :template, :saida, :memoria, :db_params
 
     def initialize(fonte, template, options = {})
       @fonte      = fonte
@@ -12,8 +11,7 @@ module SPED2SQL
                       Mapa.arquivo_template(template) : template
       @saida      = []
       @memoria    = {}
-      @tbl_prefix = options[:tbl_prefix]
-      @tbl_sufix  = options[:tbl_sufx]
+      @db_params  = options[:db]
 
       valida_arquivo(@fonte)
       valida_arquivo(@template)
@@ -48,6 +46,10 @@ module SPED2SQL
         @memoria[linha.first] = pipe[:final]
       
       end
+    end
+
+    def to_sql
+      SQL::Parser.to_sql(@saida, @db_params)
     end
 
     private
