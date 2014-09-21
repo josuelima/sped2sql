@@ -11,7 +11,7 @@ module SPED2SQL
                       Mapa.arquivo_template(template) : template
       @saida      = []
       @memoria    = {}
-      @db_params  = options[:db]
+      @db_params  = options[:db] || {}
 
       valida_arquivo(@fonte)
       valida_arquivo(@template)
@@ -42,6 +42,7 @@ module SPED2SQL
                         memoria:  @memoria, 
                         saida:    @saida})
 
+
         @saida << pipe[:final]
         @memoria[linha.first] = pipe[:final]
       
@@ -49,7 +50,7 @@ module SPED2SQL
     end
 
     def to_sql
-      SQL::Parser.to_sql(@saida, @db_params || {})
+      SQL::Parser.to_sql(@saida, @db_params)
     end
 
     private
