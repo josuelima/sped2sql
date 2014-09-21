@@ -183,3 +183,4 @@
 |H005|string|date|decimal|string|
 |H010|string|string|string|decimal|decimal|decimal|string|string|string|string|
 |H020|string|string|decimal|decimal|
+|H990|string|string|
