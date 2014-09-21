@@ -81,8 +81,8 @@ module SPED2SQL
         conversor = Conversor.new(arquivo_sped, arquivo_mapa)
         conversor.converter!
         expect( conversor.to_sql ).
-          to eq("INSERT INTO 0000 VALUES ('','Teste','2014-12-31','1000.50','Teste Fim','#{hash}');"\
-                "INSERT INTO 0001 VALUES ('','Empresa X','1520.37','#{hash}');"\
+          to eq("INSERT INTO 0000 VALUES ('','Teste','2014-12-31','1000.50','Teste Fim','#{hash}');\r\n"\
+                "INSERT INTO 0001 VALUES ('','Empresa X','1520.37','#{hash}');\r\n"\
                 "INSERT INTO 0002 VALUES ('','Fornecedor','5200537.21','Dados','#{hash}');")
       end
 

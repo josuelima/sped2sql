@@ -17,7 +17,7 @@ module SPED2SQL
       def parse!
         output = []
         @dados.each { |linha| output << formata_linha(linha) }
-        output.join("")
+        output.join("\r\n")
       end
 
       class << self
