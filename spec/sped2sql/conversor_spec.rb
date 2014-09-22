@@ -80,10 +80,24 @@ module SPED2SQL
 
         conversor = Conversor.new(arquivo_sped, arquivo_mapa)
         conversor.converter!
-        expect( conversor.to_sql ).
-          to eq("INSERT INTO 0000 VALUES ('','0000','Teste','2014-12-31','1000.50','Teste Fim','#{hash}');\r\n"\
-                "INSERT INTO 0001 VALUES ('','0001','Empresa X','1520.37','#{hash}');\r\n"\
-                "INSERT INTO 0002 VALUES ('','0002','Fornecedor','5200537.21','Dados','#{hash}');")
+
+        sql = "LOCK TABLES `0000` WRITE;\r\n"                                                                 \
+              "/*!40000 ALTER TABLE `0000` DISABLE KEYS */;\r\n"                                              \
+              "INSERT INTO 0000 VALUES ('','0000','Teste','2014-12-31','1000.50','Teste Fim','#{hash}');\r\n" \
+              "/*!40000 ALTER TABLE `0000` ENABLE KEYS */;\r\n"                                               \
+              "UNLOCK TABLES;\r\n"                                                                            \
+              "LOCK TABLES `0001` WRITE;\r\n"                                                                 \
+              "/*!40000 ALTER TABLE `0001` DISABLE KEYS */;\r\n"                                              \
+              "INSERT INTO 0001 VALUES ('','0001','Empresa X','1520.37','#{hash}');\r\n"                      \
+              "/*!40000 ALTER TABLE `0001` ENABLE KEYS */;\r\n"                                               \
+              "UNLOCK TABLES;\r\n"                                                                            \
+              "LOCK TABLES `0002` WRITE;\r\n"                                                                 \
+              "/*!40000 ALTER TABLE `0002` DISABLE KEYS */;\r\n"                                              \
+              "INSERT INTO 0002 VALUES ('','0002','Fornecedor','5200537.21','Dados','#{hash}');\r\n"          \
+              "/*!40000 ALTER TABLE `0002` ENABLE KEYS */;\r\n"                                               \
+              "UNLOCK TABLES;\r\n"                                                                            \
+
+        expect( conversor.to_sql ).to include(sql)
       end
 
     end
