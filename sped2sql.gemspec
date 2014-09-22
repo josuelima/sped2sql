@@ -21,6 +21,6 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = '>= 2.0'
 
-  gem.add_dependency "rake"
-  gem.add_development_dependency "rspec"
+  gem.add_dependency "rake", "~> 10.3.0"
+  gem.add_development_dependency "rspec", "~> 3.0.0"
 end
