@@ -29,7 +29,7 @@ module SPED2SQL
       private
 
       def formata_linha(linha)
-        linha_quoted = linha[1..-1].map { |r| "'#{r}'" }.join(",")
+        linha_quoted = linha[0..-1].map { |r| "'#{r}'" }.join(",")
 
         ROW_TEMPLATE.gsub("#tbl_prefix#", @tbl_prefix).
                      gsub("#table#", linha[0]).
