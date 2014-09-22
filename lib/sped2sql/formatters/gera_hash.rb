@@ -3,7 +3,7 @@ module SPED2SQL
   module Formatters
     class GeraHash
       def self.get_hash
-        SecureRandom.uuid
+        ::SecureRandom.uuid
       end
     end
   end

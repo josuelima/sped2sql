@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
   gem.authors      = ["Josué Lima"]
   gem.email        = ["josuedsi@gmail.com"]
   gem.summary      = %q{Transforma em SQL os arquivos do SPED (EFD ICMS/IPI, ECD, EFD Contribuições}
-  gem.description  = %q{sped2sql recebe um arquivo SPED (ou qualquer outro CSV com pipes) juntamente com seu layout em CSV e devolve um arquivo com Inserts SQL}
+  gem.description  = %q{Transforma um arquivo SPED em um arquivo SQL pronto para ser importado para MySQL}
   gem.license      = "MIT"
   gem.homepage     = "https://github.com/josuelima/sped2sql"
 
