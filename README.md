@@ -10,15 +10,14 @@ SPED2SQL é uma RubyGem que converte arquivos SPED para arquivos SQL prontos par
 
 Atualmente apenas o template para a EFD ICMS IPI está disponibilizado, porém você pode implementar e customizar o seu próprio template (e se possível enviar de volta como contribuição).
 
-# Instalação
+## Instalação
 ```ruby
 gem install sped2sql
-
 ```
 
-# Uso
+## Uso
 
-Convertendo um arquivo EFD ICMS IPI para SQL
+### Convertendo um arquivo EFD ICMS IPI para SQL
 
 ```ruby
 require 'sped2sql'
@@ -29,3 +28,75 @@ conversor.converter!
 # Salva o SQL em um arquivo texto
 IO.write('caminho_destino_sql.sql', conversor.to_sql)
 ```
+Verifique os SPECS para outros exemplos e o retorno SQL
+
+### Convertendo um arquivo SPED utilizando um template próprio
+
+```ruby
+require 'sped2sql'
+
+conversor = Conversor.new(caminho_arquivo_sped, caminho_template_txt)
+conversor.converter!
+
+# Salva o SQL em um arquivo texto
+IO.write('caminho_destino_sql.sql', conversor.to_sql)
+```
+Veja um exemplo de (template)[https://github.com/josuelima/sped2sql/blob/master/templates/efd_icms_ipi.txt]
+
+### Parsers
+
+Por padrão duas operações (tasks) são executas durante a leitura de cada linha do SPED. São elas:
+* (NormalizaSQL)[https://github.com/josuelima/sped2sql/blob/master/lib/sped2sql/pipeline/normaliza_sql.rb]: Converte cada campo para o respectivo tipo de dado informado no template
+* (AddHash)[https://github.com/josuelima/sped2sql/blob/master/lib/sped2sql/pipeline/add_hash.rb]: Adiciona um identificador único para cada registro
+
+Para não utiliza-las, basta apenas instanciar o conversor explicitando as tasks vazias:
+
+```ruby
+conversor = Conversor.new(arquivo_sped, arquivo_mapa, {tasks: :vazio})
+```
+
+### Parsers customizados
+
+É possível utilizar seus próprios parsers para serem executados como tasks a cada leitura de linha.
+Basta apenas que ele responda ao metodo call recebendo como argumento um hash contendo:
+
+* :original => linha original que está sendo lida no momento
+* :final    => linha com as modificações feitas por outros parsers até o momento
+* :mapa     => template para o registro específico
+* :memoria  => último registro lido de cada tabela
+* :saida    => acumulador das leituras feitas até momento
+
+E retorne o mesmo hash como a key final modificada com suas alterações (apenas modificações nessa key serão levadas em conta).
+
+Neste exemplo, um simples parser que adiciona a hora atual na última coluna da linha lida:
+
+```ruby
+module MyParser
+  def self.call(env)
+    env[:final].push(Time.now)
+    env
+  end
+end
+```
+
+Para utilizar apenas este parser na leitura do seu arquivo:
+
+```ruby
+conversor = Conversor.new(arquivo_sped, arquivo_mapa, {tasks: [MyParser]})
+```
+
+Para utilizar os parsers default e acrescentar o seu ao final:
+
+```ruby
+conversor = Conversor.new(arquivo_sped, arquivo_mapa)
+conversor << MyParser
+```
+
+## Contribuindo
+
+Contribuições são bem vindas. Você pode contribuir de diversas maneiras:
+
+* Procurando e reportando erros ([faça isso aqui](https://github.com/josuelima/sped2sql/issues))
+* Corrigindo erros e enviando as correções (Fork o projeto e envie um Pull Request)
+* Criando novos templates
+* Criando parsers úteis de propósito geral
