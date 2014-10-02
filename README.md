@@ -30,6 +30,7 @@ IO.write('caminho_destino_sql.sql', conversor.to_sql)
 ```
 Verifique os SPECS para outros exemplos e o retorno SQL
 
+
 ### Convertendo um arquivo SPED utilizando um template próprio
 
 ```ruby
@@ -41,19 +42,21 @@ conversor.converter!
 # Salva o SQL em um arquivo texto
 IO.write('caminho_destino_sql.sql', conversor.to_sql)
 ```
-Veja um exemplo de (template)[https://github.com/josuelima/sped2sql/blob/master/templates/efd_icms_ipi.txt]
+Veja um exemplo de [template](https://github.com/josuelima/sped2sql/blob/master/templates/efd_icms_ipi.txt)
+
 
 ### Parsers
 
 Por padrão duas operações (tasks) são executas durante a leitura de cada linha do SPED. São elas:
-* (NormalizaSQL)[https://github.com/josuelima/sped2sql/blob/master/lib/sped2sql/pipeline/normaliza_sql.rb]: Converte cada campo para o respectivo tipo de dado informado no template
-* (AddHash)[https://github.com/josuelima/sped2sql/blob/master/lib/sped2sql/pipeline/add_hash.rb]: Adiciona um identificador único para cada registro
+* [NormalizaSQL](https://github.com/josuelima/sped2sql/blob/master/lib/sped2sql/pipeline/normaliza_sql.rb): Converte cada campo para o respectivo tipo de dado informado no template
+* [AddHash](https://github.com/josuelima/sped2sql/blob/master/lib/sped2sql/pipeline/add_hash.rb): Adiciona um identificador único para cada registro
 
 Para não utiliza-las, basta apenas instanciar o conversor explicitando as tasks vazias:
 
 ```ruby
 conversor = Conversor.new(arquivo_sped, arquivo_mapa, {tasks: :vazio})
 ```
+
 
 ### Parsers customizados
 
