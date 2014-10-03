@@ -15,7 +15,7 @@ module SPED2SQL
         @tasks = tasks
       end
 
-      def << (task)
+      def <<(task)
         @tasks << task
         self
       end

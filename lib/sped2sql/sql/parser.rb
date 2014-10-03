@@ -2,7 +2,6 @@
 module SPED2SQL
   module SQL
     class Parser
-
       attr_reader :dados, :tbl_prefix, :tbl_sufix
 
       HEADER  = "/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;\r\n"                   \
@@ -24,8 +23,8 @@ module SPED2SQL
                 "/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;\r\n"
 
       def initialize(dados, options = {})
-        @tbl_prefix = options[:tbl_prefix] || ""
-        @tbl_sufix  = options[:tbl_sufix]  || ""
+        @tbl_prefix = options[:tbl_prefix] || ''
+        @tbl_sufix  = options[:tbl_sufix]  || ''
         @dados      = dados
         self
       end
@@ -55,7 +54,9 @@ module SPED2SQL
 
       def inserts_agrupados
         inserts = Hash.new { |k, v| k[v] = [] }
-        dados.each { |linha| inserts[linha[0]] << linha[0..-1].map { |r| "'#{r}'" }.join(",") }
+        dados.each do |linha|
+          inserts[linha[0]] << linha[0..-1].map { |r| "'#{r}'" }.join(',')
+        end
         inserts
       end
 

@@ -4,7 +4,7 @@ module SPED2SQL
       include Formatters
 
       def self.call(env)
-        env[:final].push( GeraHash.get_hash )
+        env[:final].push(GeraHash.get_hash)
         env
       end
 

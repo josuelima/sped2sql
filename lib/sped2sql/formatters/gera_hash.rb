@@ -7,4 +7,4 @@ module SPED2SQL
       end
     end
   end
-end 
+end
