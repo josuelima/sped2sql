@@ -65,7 +65,7 @@ Basta apenas que ele responda ao metodo call recebendo como argumento um hash co
 
 * :original => linha original que está sendo lida no momento
 * :final    => linha com as modificações feitas por outros parsers até o momento
-* :mapa     => template para o registro específico
+* :mapa     => template mapeando o tipo de dado para cada registro do sped
 * :memoria  => último registro lido de cada tabela
 * :saida    => acumulador das leituras feitas até momento
 
