@@ -35,7 +35,7 @@ module SPED2SQL
         # Executa o pipe
         pipe = execute({ original: linha,
                          final:    linha,
-                         mapa:     mapa[linha.first],
+                         mapa:     mapa,
                          memoria:  @memoria,
                          saida:    @saida })
 

@@ -9,13 +9,13 @@ module SPED2SQL
       
       let(:env)   { { original: ['0000','Teste','31122014','1000,50','Teste Fim'],
                       final:    ['0000','Teste','31122014','1000,50','Teste Fim'],
-                      mapa:     ['0000','string','date','decimal','string'],
+                      mapa:     {"0000" => ['0000','string','date','decimal','string']},
                       memoria:  {},
                       saida:    [] } }
 
       let(:saida) { { original: ['0000','Teste','31122014','1000,50','Teste Fim'],
                       final:    ['0000','Teste','2014-12-31','1000.50','Teste Fim'],
-                      mapa:     ['0000','string','date','decimal','string'],
+                      mapa:     {"0000" => ['0000','string','date','decimal','string']},
                       memoria:  {},
                       saida:    [] } }
 

@@ -5,7 +5,8 @@ module SPED2SQL
       include Formatters
 
       def self.call(env)
-        env[:final] = env[:original].zip(env[:mapa]).map do |dado, tipo|
+        mapa = env[:mapa][env[:original].first]
+        env[:final] = env[:original].zip(mapa).map do |dado, tipo|
           StringConverter.converter(dado, tipo)
         end
         env
