@@ -68,6 +68,7 @@ Basta apenas que ele responda ao metodo call recebendo como argumento um hash co
 * :mapa     => template mapeando o tipo de dado para cada registro do sped
 * :memoria  => último registro lido de cada tabela
 * :saida    => acumulador das leituras feitas até momento
+* :options  => Opções enviadas na instaciação do conversor
 
 E retorne o mesmo hash como a key final modificada com suas alterações (apenas modificações nessa key serão levadas em conta).
 
