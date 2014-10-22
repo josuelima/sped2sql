@@ -13,10 +13,11 @@ module SPED2SQL
         end
 
         def date(subject)
-          [subject[4..7], subject[2..3], subject[0..1]].join('-')
+          Date.parse("#{subject[4..7]}-#{subject[2..3]}-#{subject[0..1]}").to_s
         end
 
         def decimal(subject)
+          # O formato para decimal no SPED eh sempre #.###,##
           subject.gsub(/\./, '').gsub(/,/, '.')
         end
 
