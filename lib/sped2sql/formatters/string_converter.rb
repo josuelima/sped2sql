@@ -13,7 +13,7 @@ module SPED2SQL
         end
 
         def date(subject)
-          Date.parse("#{subject[4..7]}-#{subject[2..3]}-#{subject[0..1]}").to_s
+          "#{subject[4..7]}-#{subject[2..3]}-#{subject[0..1]}"
         end
 
         def decimal(subject)
