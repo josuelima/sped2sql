@@ -30,7 +30,9 @@ module SPED2SQL
       mapa = Mapa.carrega!(@template)
       CSV.foreach(fonte, col_sep: '|', quote_char: '|', encoding: 'ISO-8859-1') do |row|
         # O primeiro e o ultimo item de uma linha no SPED sempre eh nulo
-        linha = row.clone[1..-2]
+        linha = row.clone[1..-2] 
+        next unless mapa.has_key? linha[0]
+
 
         # Executa o pipe
         pipe = execute({ original: linha,
@@ -38,7 +40,7 @@ module SPED2SQL
                          mapa:     mapa,
                          memoria:  @memoria,
                          saida:    @saida,
-                         options:  @options })
+                         options:  @options  })
 
         @saida << pipe[:final]
         @memoria[linha.first] = pipe[:final]
