@@ -33,14 +33,13 @@ module SPED2SQL
         linha = row.clone[1..-2] 
         next unless mapa.has_key? linha[0]
 
-
         # Executa o pipe
         pipe = execute({ original: linha,
                          final:    linha,
                          mapa:     mapa,
                          memoria:  @memoria,
                          saida:    @saida,
-                         options:  @options  })
+                         options:  @options })
 
         @saida << pipe[:final]
         @memoria[linha.first] = pipe[:final]
