@@ -31,7 +31,9 @@ module SPED2SQL
       CSV.foreach(fonte, col_sep: '|', quote_char: '|', encoding: 'ISO-8859-1') do |row|
         # O primeiro e o ultimo item de uma linha no SPED sempre eh nulo
         linha = row.clone[1..-2] 
-        next unless mapa.has_key? linha[0]
+
+        # Evita ler linhas com assinatura digital ou em branco
+        next unless mapa.has_key?(linha[0])
 
         # Executa o pipe
         pipe = execute({ original: linha,
