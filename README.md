@@ -22,11 +22,11 @@ gem install sped2sql
 ```ruby
 require 'sped2sql'
 
-conversor = Conversor.new(caminho_arquivo_sped, :efd_icms_ipi)
-conversor.converter!
+conversor = SPED2SQL::Conversor.new(caminho_arquivo_sped, :efd_icms_ipi)
+SPED2SQL::conversor.converter!
 
 # Salva o SQL em um arquivo texto
-IO.write('caminho_destino_sql.sql', conversor.to_sql)
+IO.write('caminho_destino_sql.sql', SPED2SQL::conversor.to_sql)
 ```
 Verifique os SPECS para outros exemplos e o retorno SQL
 
@@ -36,11 +36,11 @@ Verifique os SPECS para outros exemplos e o retorno SQL
 ```ruby
 require 'sped2sql'
 
-conversor = Conversor.new(caminho_arquivo_sped, caminho_template_txt)
-conversor.converter!
+conversor = SPED2SQL::Conversor.new(caminho_arquivo_sped, caminho_template_txt)
+SPED2SQL::conversor.converter!
 
 # Salva o SQL em um arquivo texto
-IO.write('caminho_destino_sql.sql', conversor.to_sql)
+IO.write('caminho_destino_sql.sql', SPED2SQL::conversor.to_sql)
 ```
 Veja um exemplo de [template](https://github.com/josuelima/sped2sql/blob/master/templates/efd_icms_ipi.txt)
 
@@ -54,7 +54,7 @@ Por padrão duas operações (tasks) são executas durante a leitura de cada lin
 Para não utiliza-las, basta apenas instanciar o conversor explicitando as tasks vazias:
 
 ```ruby
-conversor = Conversor.new(arquivo_sped, arquivo_mapa, {tasks: :vazio})
+conversor = SPED2SQL::Conversor.new(arquivo_sped, arquivo_mapa, {tasks: :vazio})
 ```
 
 
@@ -86,13 +86,13 @@ end
 Para utilizar apenas este parser na leitura do seu arquivo:
 
 ```ruby
-conversor = Conversor.new(arquivo_sped, arquivo_mapa, {tasks: [MyParser]})
+conversor = SPED2SQL::Conversor.new(arquivo_sped, arquivo_mapa, {tasks: [MyParser]})
 ```
 
 Para utilizar os parsers default e acrescentar o seu ao final:
 
 ```ruby
-conversor = Conversor.new(arquivo_sped, arquivo_mapa)
+conversor = SPED2SQL::Conversor.new(arquivo_sped, arquivo_mapa)
 conversor << MyParser
 ```
 
