@@ -23,10 +23,10 @@ gem install sped2sql
 require 'sped2sql'
 
 conversor = SPED2SQL::Conversor.new(caminho_arquivo_sped, :efd_icms_ipi)
-SPED2SQL::conversor.converter!
+conversor.converter!
 
 # Salva o SQL em um arquivo texto
-IO.write('caminho_destino_sql.sql', SPED2SQL::conversor.to_sql)
+IO.write('caminho_destino_sql.sql', conversor.to_sql)
 ```
 Verifique os SPECS para outros exemplos e o retorno SQL
 
@@ -37,10 +37,10 @@ Verifique os SPECS para outros exemplos e o retorno SQL
 require 'sped2sql'
 
 conversor = SPED2SQL::Conversor.new(caminho_arquivo_sped, caminho_template_txt)
-SPED2SQL::conversor.converter!
+conversor.converter!
 
 # Salva o SQL em um arquivo texto
-IO.write('caminho_destino_sql.sql', SPED2SQL::conversor.to_sql)
+IO.write('caminho_destino_sql.sql', conversor.to_sql)
 ```
 Veja um exemplo de [template](https://github.com/josuelima/sped2sql/blob/master/templates/efd_icms_ipi.txt)
 
