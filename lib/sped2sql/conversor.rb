@@ -28,12 +28,9 @@ module SPED2SQL
 
     def converter!
       mapa = Mapa.carrega!(@template)
-      CSV.foreach(fonte, col_sep: '|', quote_char: '|', encoding: 'ISO-8859-1') do |row|
+      CSV.foreach(fonte, col_sep: '|', quote_char: "\"", encoding: 'ISO-8859-1') do |row|
         # O primeiro e o ultimo item de uma linha no SPED sempre eh nulo
         linha = row.clone[1..-2] 
-
-        # Evita ler linhas com assinatura digital ou em branco
-        next unless mapa.has_key?(linha[0])
 
         # Executa o pipe
         pipe = execute({ original: linha,
@@ -45,6 +42,11 @@ module SPED2SQL
 
         @saida << pipe[:final]
         @memoria[linha.first] = pipe[:final]
+
+        # Para um arquivo completo do SPED, 9999 eh o ultimo registro
+        # termina a leitura do arquivo no registro 9999 evitando ler
+        # linhas em branco ou assinatura digital
+        break if linha[0].to_i >= 9999 || !mapa.has_key?(linha[0])
       end
     end
 
