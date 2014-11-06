@@ -34,6 +34,7 @@ module SPED2SQL
               .gsub("'", '"')
 
       CSV.parse(dados, col_sep: '|', quote_char: "'", encoding: 'ISO-8859-1') do |row|
+        # pula linha se o registro nao existe no mapa
         next unless mapa.has_key?(row[1])
 
         # O primeiro e o ultimo item de uma linha no SPED sempre eh nulo
