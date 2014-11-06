@@ -28,12 +28,9 @@ module SPED2SQL
 
     def converter!
       mapa  = Mapa.carrega!(@template)
-      dados = IO.read(fonte)
-              .force_encoding('ISO-8859-1')
-              .encode('utf-8')
-              .gsub("'", '"')
+      dados = IO.read(fonte, encoding: 'ISO-8859-1').gsub("'", '"')
 
-      CSV.parse(dados, col_sep: '|', quote_char: "'", encoding: 'ISO-8859-1') do |row|
+      CSV.parse(dados, col_sep: '|', quote_char: "'") do |row|
         # pula linha se o registro nao existe no mapa
         next unless mapa.has_key?(row[1])
 
