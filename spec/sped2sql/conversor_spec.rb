@@ -47,12 +47,12 @@ module SPED2SQL
 
     describe 'Conversão' do
 
-      it "deveria não modificar a saída se nenhum pipe for passado" do
+      it "deveria agrupar a memoria por registro" do
         conversor = Conversor.new(arquivo_sped, arquivo_mapa, {tasks: :vazio})
         conversor.converter!
-        expect( conversor.saida ).to eq([['0000','Teste','31122014','1000,50','Teste Fim'],
-                                         ['0001','Empresa X','1520,37'],
-                                         ['0002','Fornecedor','5200537,21','Dados']])
+        expect( conversor.memoria ).to eq({'0000' => [['0000','Teste','31122014','1000,50','Teste Fim']],
+                                           '0001' => [['0001','Empresa X','1520,37']],
+                                           '0002' => [['0002','Fornecedor','5200537,21','Dados']]})
       end
 
       it "deveria modificar apenas com o pipe informado" do

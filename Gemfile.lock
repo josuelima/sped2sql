@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sped2sql (1.0.2)
+    sped2sql (1.0.3)
       rake (~> 10.3)
 
 GEM

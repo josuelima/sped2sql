@@ -9,7 +9,7 @@ module SPED2SQL
       @fonte      = fonte
       @template   = template.is_a?(Symbol) ? Mapa.arquivo_template(template) : template
       @saida      = []
-      @memoria    = {}
+      @memoria    = Hash.new { |k, v| k[v] = [] }
       @options    = options
 
       valida_arquivo(@fonte)
@@ -49,7 +49,7 @@ module SPED2SQL
                          options:  @options })
 
         @saida << pipe[:final]
-        @memoria[linha.first] = pipe[:final]
+        @memoria[linha.first] << pipe[:final]
 
         # Para um arquivo completo do SPED, 9999 eh o ultimo registro.
         # termina a leitura do arquivo no registro 9999 evitando ler
