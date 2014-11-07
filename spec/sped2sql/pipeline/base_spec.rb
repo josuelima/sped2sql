@@ -27,6 +27,17 @@ module SPED2SQL
         expect( base_obj.tasks ).to eq([::FiltroVazio, ::FiltroAdd])
       end
 
+      it "deveria mesclar novas tarefas" do
+        base_obj.merge_tasks([1, 2])
+        expect( base_obj.tasks ).to eq([1, 2])
+
+        base_obj.merge_tasks([3, 4])
+        expect( base_obj.tasks ).to eq([1, 2, 3, 4])
+
+        base_obj.merge_tasks([1, 4])
+        expect( base_obj.tasks ).to eq([1, 2, 3, 4])
+      end
+
       it "deveria retornar um objeto Base apos adicionar tarefa" do
         expect( base_obj << ::FiltroAdd ).to be_a(Base)
         expect( (base_obj << ::FiltroVazio).tasks ).to eq([::FiltroAdd, ::FiltroVazio])

@@ -20,6 +20,10 @@ module SPED2SQL
         self
       end
 
+      def merge_tasks(merge)
+        @tasks = @tasks + (merge - @tasks)
+      end
+
       def execute(env)
         @tasks.each { |t| env = t.call(env) }
         env
